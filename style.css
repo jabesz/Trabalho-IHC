@@ -1,0 +1,37 @@
+:root {
+    --riot-red: #ff4655;
+    --riot-dark: #0f1923;
+    --text-white: #ece8e1;
+}
+
+body, html { margin: 0; padding: 0; height: 100%; background: var(--riot-dark); font-family: 'Roboto', sans-serif; color: var(--text-white); }
+
+/* Header */
+.riot-header {
+    height: 80px; background: #111; display: flex; align-items: center; padding: 0 50px;
+    border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 100;
+}
+.logo { font-family: 'Oswald'; font-size: 24px; letter-spacing: 2px; }
+.logo b { color: var(--riot-red); }
+nav ul { display: flex; list-style: none; margin-left: 50px; }
+nav a { color: var(--text-white); text-decoration: none; font-weight: 900; margin-right: 30px; font-size: 13px; transition: 0.3s; }
+nav a:hover, nav a.active { color: var(--riot-red); }
+
+/* Hero Section */
+.hero {
+    height: 90vh; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(rgba(15, 25, 35, 0.8), rgba(15, 25, 35, 0.8)), url('https://images.alphacoders.com/108/1083431.jpg');
+    background-size: cover; background-position: center; text-align: center;
+}
+.hero-content h1 { font-family: 'Oswald'; font-size: 80px; margin: 10px 0; }
+.hero-content h1 span { color: transparent; -webkit-text-stroke: 1px var(--riot-red); }
+.hero-tag { color: var(--riot-red); font-weight: bold; letter-spacing: 5px; }
+
+/* Botões Estilo Riot */
+.btn-riot {
+    display: inline-block; padding: 20px 40px; background: var(--riot-red); color: white;
+    text-decoration: none; font-weight: bold; font-family: 'Oswald'; position: relative;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%); transition: 0.3s;
+}
+.btn-riot:hover { transform: scale(1.05); filter: brightness(1.2); }
+.btn-secondary { color: white; text-decoration: none; margin-left: 20px; font-weight: bold; border-bottom: 2px solid var(--riot-red); }

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Comparação | Arena Wiki</title>
+    <link rel="stylesheet" href="jogadores-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto:wght@400;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .compare-container { display: flex; justify-content: space-around; padding: 40px; gap: 20px; flex-wrap: wrap; }
+        .selector-box { background: var(--riot-gray); padding: 25px; border-top: 3px solid var(--riot-red); width: 45%; min-width: 300px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        select { width: 100%; padding: 12px; background: #111; color: white; border: 1px solid rgba(255,255,255,0.2); margin-top: 15px; font-family: 'Oswald'; font-size: 16px; cursor: pointer; outline: none; }
+        select:focus { border-color: var(--riot-red); }
+        .chart-wrapper { background: #111; margin: 40px auto; padding: 30px; width: 90%; max-width: 700px; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; }
+        h3 { font-family: 'Oswald'; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+    <header class="riot-header">
+        <div class="logo">ESPORTS <b>ARENA</b></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">INÍCIO</a></li>
+                <li><a href="jogadores.html">JOGADORES</a></li>
+                <li><a href="comparacao.html" class="active">COMPARAÇÃO</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="content">
+        <div class="content-header">
+            <h1>VERSUS <span>COMPARATOR</span></h1>
+        </div>
+
+        <div class="compare-container">
+            <div class="selector-box">
+                <h3>ESCOLHA O JOGADOR 1</h3>
+                <select id="select1" onchange="comparar()"></select>
+            </div>
+            <div class="selector-box">
+                <h3>ESCOLHA O JOGADOR 2</h3>
+                <select id="select2" onchange="comparar()"></select>
+            </div>
+        </div>
+
+        <div class="chart-wrapper">
+            <canvas id="compareChart"></canvas>
+        </div>
+    </main>
+
+    <script src="jogadores-script.js"></script>
+    <script>
+        // Função para preencher os selects com todos os jogadores do banco de dados
+        function popularSelects() {
+            const s1 = document.getElementById('select1');
+            const s2 = document.getElementById('select2');
+            
+            let options = "";
+            for (let time in bancoDados) {
+                bancoDados[time].forEach(p => {
+                    options += `<option value="${p.nome}">${p.nome} (${time.toUpperCase()})</option>`;
+                });
+            }
+            s1.innerHTML = options;
+            s2.innerHTML = options;
+            s2.selectedIndex = 1; // Começa com o segundo jogador selecionado para comparar
+            comparar();
+        }
+
+        let compareChart = null;
+
+        function comparar() {
+            const nome1 = document.getElementById('select1').value;
+            const nome2 = document.getElementById('select2').value;
+
+            let p1, p2;
+            // Busca os objetos dos jogadores no banco global
+            for (let time in bancoDados) {
+                let busca1 = bancoDados[time].find(p => p.nome === nome1);
+                let busca2 = bancoDados[time].find(p => p.nome === nome2);
+                if (busca1) p1 = busca1;
+                if (busca2) p2 = busca2;
+            }
+
+            const ctx = document.getElementById('compareChart').getContext('2d');
+            if (compareChart) compareChart.destroy();
+
+            compareChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['MIRA/MECÂNICA', 'POSICIONAMENTO', 'CLUTCH/DECISÃO', 'UTILIDADE', 'AGRESSIVIDADE'],
+                    datasets: [
+                        {
+                            label: p1.nome,
+                            data: p1.stats,
+                            backgroundColor: 'rgba(255, 70, 85, 0.3)',
+                            borderColor: '#ff4655',
+                            borderWidth: 3,
+                            pointBackgroundColor: '#ff4655'
+                        },
+                        {
+                            label: p2.nome,
+                            data: p2.stats,
+                            backgroundColor: 'rgba(0, 191, 255, 0.3)',
+                            borderColor: '#00bfff',
+                            borderWidth: 3,
+                            pointBackgroundColor: '#00bfff'
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            backgroundColor: 'rgba(20, 20, 20, 0.5)',
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                            pointLabels: { color: '#fff', font: { size: 12, family: 'Oswald' } },
+                            ticks: { display: false },
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#fff', font: { size: 16, family: 'Oswald' } } }
+                    }
+                }
+            });
+        }
+
+        window.onload = popularSelects;
+    </script>
+</body>
+</html>
