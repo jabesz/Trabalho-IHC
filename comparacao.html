@@ -2,22 +2,188 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comparação | Arena Wiki</title>
     <link rel="stylesheet" href="jogadores-style.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto:wght@400;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        .compare-container { display: flex; justify-content: space-around; padding: 40px; gap: 20px; flex-wrap: wrap; }
-        .selector-box { background: var(--riot-gray); padding: 25px; border-top: 3px solid var(--riot-red); width: 45%; min-width: 300px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        select { width: 100%; padding: 12px; background: #111; color: white; border: 1px solid rgba(255,255,255,0.2); margin-top: 15px; font-family: 'Oswald'; font-size: 16px; cursor: pointer; outline: none; }
+        /* ── Abas de jogo ── */
+        .game-tabs {
+            display: flex;
+            gap: 0;
+            margin: 40px 60px 0;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+        .game-tab {
+            padding: 14px 32px;
+            font-family: 'Oswald';
+            font-size: 15px;
+            letter-spacing: 2px;
+            background: transparent;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.2s;
+        }
+        .game-tab::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; left: 0; right: 0;
+            height: 2px;
+            background: var(--riot-red);
+            transform: scaleX(0);
+            transition: transform 0.25s;
+        }
+        .game-tab:hover { color: #ccc; }
+        .game-tab.active { color: #fff; }
+        .game-tab.active::after { transform: scaleX(1); }
+
+        /* ── Painel de comparação ── */
+        .compare-panel { display: none; padding: 40px 60px; }
+        .compare-panel.active { display: block; }
+
+        .compare-container {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .selector-box {
+            background: var(--riot-gray);
+            padding: 25px;
+            border-top: 3px solid var(--riot-red);
+            width: 42%;
+            min-width: 260px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .selector-box h3 {
+            font-family: 'Oswald';
+            letter-spacing: 1px;
+            margin: 0 0 5px;
+            font-size: 13px;
+            color: #888;
+        }
+        .selector-box .player-preview {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+            min-height: 56px;
+        }
+        .preview-avatar {
+            width: 48px;
+            height: 54px;
+            object-fit: cover;
+            border: 2px solid var(--riot-red);
+            flex-shrink: 0;
+        }
+        .preview-info .preview-name {
+            font-family: 'Oswald';
+            font-size: 18px;
+            color: #fff;
+            margin: 0;
+        }
+        .preview-info .preview-role {
+            font-size: 12px;
+            color: #888;
+            margin: 2px 0 0;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            background: #111;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-family: 'Oswald';
+            font-size: 15px;
+            cursor: pointer;
+            outline: none;
+        }
         select:focus { border-color: var(--riot-red); }
-        .chart-wrapper { background: #111; margin: 40px auto; padding: 30px; width: 90%; max-width: 700px; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; }
-        h3 { font-family: 'Oswald'; letter-spacing: 1px; }
+        optgroup { color: var(--riot-red); font-size: 12px; }
+        option  { color: white; }
+
+        /* ── Placar de stats ── */
+        .stats-bar-section {
+            margin: 30px 0 10px;
+        }
+        .stats-bar-section h4 {
+            font-family: 'Oswald';
+            color: #888;
+            font-size: 13px;
+            letter-spacing: 2px;
+            margin: 0 0 18px;
+            text-align: center;
+        }
+        .stat-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .stat-label {
+            font-family: 'Oswald';
+            font-size: 12px;
+            color: #888;
+            width: 90px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .bar-wrap {
+            flex: 1;
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+        .bar-left  { flex: 1; display: flex; justify-content: flex-end; }
+        .bar-right { flex: 1; display: flex; justify-content: flex-start; }
+        .bar {
+            height: 8px;
+            border-radius: 2px;
+            transition: width 0.5s ease;
+            min-width: 2px;
+        }
+        .bar-p1 { background: #ff4655; }
+        .bar-p2 { background: #00bfff; }
+
+        /* ── Gráfico radar ── */
+        .chart-wrapper {
+            background: #111;
+            margin: 30px auto 0;
+            padding: 30px;
+            max-width: 680px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+
+        /* ── VS badge ── */
+        .vs-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Oswald';
+            font-size: 28px;
+            color: var(--riot-red);
+            flex-shrink: 0;
+            margin-top: 15px;
+        }
+
+        /* Responsivo */
+        @media (max-width: 700px) {
+            .game-tabs { margin: 20px 15px 0; }
+            .compare-panel { padding: 20px 15px; }
+            .selector-box { width: 100%; }
+            .vs-badge { transform: rotate(90deg); }
+        }
     </style>
 </head>
 <body>
     <header class="riot-header">
-        <div class="logo">ESPORTS <b>ARENA</b></div>
+        <div class="logo">ARENA<b>WIKI</b></div>
         <nav>
             <ul>
                 <li><a href="index.html">INÍCIO</a></li>
@@ -27,73 +193,213 @@
         </nav>
     </header>
 
-    <main class="content">
+    <div style="padding: 40px 60px 0;">
         <div class="content-header">
             <h1>VERSUS <span>COMPARATOR</span></h1>
+            <p style="color:#888; font-size:13px; margin-top:8px;">Selecione o jogo e compare dois jogadores lado a lado.</p>
         </div>
+    </div>
 
+    <!-- Abas -->
+    <div class="game-tabs">
+        <button class="game-tab active" onclick="mudarJogo('cs',this)">COUNTER-STRIKE</button>
+        <button class="game-tab"        onclick="mudarJogo('val',this)">VALORANT</button>
+        <button class="game-tab"        onclick="mudarJogo('lol',this)">LEAGUE OF LEGENDS</button>
+    </div>
+
+    <!-- Painel CS -->
+    <div class="compare-panel active" id="panel-cs">
         <div class="compare-container">
             <div class="selector-box">
-                <h3>ESCOLHA O JOGADOR 1</h3>
-                <select id="select1" onchange="comparar()"></select>
+                <h3>JOGADOR 1</h3>
+                <select id="cs-select1" onchange="comparar('cs')"></select>
+                <div class="player-preview" id="cs-preview1">
+                    <img class="preview-avatar" id="cs-avatar1" src="" alt="">
+                    <div class="preview-info">
+                        <p class="preview-name" id="cs-name1">—</p>
+                        <p class="preview-role" id="cs-role1">Selecione um jogador</p>
+                    </div>
+                </div>
             </div>
+            <div class="vs-badge">VS</div>
             <div class="selector-box">
-                <h3>ESCOLHA O JOGADOR 2</h3>
-                <select id="select2" onchange="comparar()"></select>
+                <h3>JOGADOR 2</h3>
+                <select id="cs-select2" onchange="comparar('cs')"></select>
+                <div class="player-preview" id="cs-preview2">
+                    <img class="preview-avatar" id="cs-avatar2" src="" alt="">
+                    <div class="preview-info">
+                        <p class="preview-name" id="cs-name2">—</p>
+                        <p class="preview-role" id="cs-role2">Selecione um jogador</p>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="stats-bar-section" id="cs-bars"></div>
+        <div class="chart-wrapper"><canvas id="cs-chart"></canvas></div>
+    </div>
 
-        <div class="chart-wrapper">
-            <canvas id="compareChart"></canvas>
+    <!-- Painel VAL -->
+    <div class="compare-panel" id="panel-val">
+        <div class="compare-container">
+            <div class="selector-box">
+                <h3>JOGADOR 1</h3>
+                <select id="val-select1" onchange="comparar('val')"></select>
+                <div class="player-preview">
+                    <img class="preview-avatar" id="val-avatar1" src="" alt="">
+                    <div class="preview-info">
+                        <p class="preview-name" id="val-name1">—</p>
+                        <p class="preview-role" id="val-role1">Selecione um jogador</p>
+                    </div>
+                </div>
+            </div>
+            <div class="vs-badge">VS</div>
+            <div class="selector-box">
+                <h3>JOGADOR 2</h3>
+                <select id="val-select2" onchange="comparar('val')"></select>
+                <div class="player-preview">
+                    <img class="preview-avatar" id="val-avatar2" src="" alt="">
+                    <div class="preview-info">
+                        <p class="preview-name" id="val-name2">—</p>
+                        <p class="preview-role" id="val-role2">Selecione um jogador</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </main>
+        <div class="stats-bar-section" id="val-bars"></div>
+        <div class="chart-wrapper"><canvas id="val-chart"></canvas></div>
+    </div>
+
+    <!-- Painel LoL -->
+    <div class="compare-panel" id="panel-lol">
+        <div class="compare-container">
+            <div class="selector-box">
+                <h3>JOGADOR 1</h3>
+                <select id="lol-select1" onchange="comparar('lol')"></select>
+                <div class="player-preview">
+                    <img class="preview-avatar" id="lol-avatar1" src="" alt="">
+                    <div class="preview-info">
+                        <p class="preview-name" id="lol-name1">—</p>
+                        <p class="preview-role" id="lol-role1">Selecione um jogador</p>
+                    </div>
+                </div>
+            </div>
+            <div class="vs-badge">VS</div>
+            <div class="selector-box">
+                <h3>JOGADOR 2</h3>
+                <select id="lol-select2" onchange="comparar('lol')"></select>
+                <div class="player-preview">
+                    <img class="preview-avatar" id="lol-avatar2" src="" alt="">
+                    <div class="preview-info">
+                        <p class="preview-name" id="lol-name2">—</p>
+                        <p class="preview-role" id="lol-role2">Selecione um jogador</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="stats-bar-section" id="lol-bars"></div>
+        <div class="chart-wrapper"><canvas id="lol-chart"></canvas></div>
+    </div>
 
     <script src="jogadores-script.js"></script>
     <script>
-        // Função para preencher os selects com todos os jogadores do banco de dados
-        function popularSelects() {
-            const s1 = document.getElementById('select1');
-            const s2 = document.getElementById('select2');
-            
-            let options = "";
-            for (let time in bancoDados) {
-                bancoDados[time].forEach(p => {
-                    options += `<option value="${p.nome}">${p.nome} (${time.toUpperCase()})</option>`;
-                });
-            }
-            s1.innerHTML = options;
-            s2.innerHTML = options;
-            s2.selectedIndex = 1; // Começa com o segundo jogador selecionado para comparar
-            comparar();
+        // Mapeamento de times por jogo
+        const jogoTimes = {
+            cs:  ['lg', 'furia', 'astralis', 'navi'],
+            val: ['loud', 'acend', 'eg', 'sentinels'],
+            lol: ['pain', 't1', 'ssw', 'edg']
+        };
+
+        const nomesTime = {
+            lg: 'Luminosity (2016)', furia: 'FURIA', astralis: 'Astralis', navi: 'NaVi',
+            loud: 'LOUD', acend: 'Acend', eg: 'EG', sentinels: 'Sentinels',
+            pain: 'Pain Gaming', t1: 'T1', ssw: 'Samsung White', edg: 'EDG'
+        };
+
+        let charts = { cs: null, val: null, lol: null };
+
+        function mudarJogo(jogo, btn) {
+            document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.compare-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('panel-' + jogo).classList.add('active');
         }
 
-        let compareChart = null;
-
-        function comparar() {
-            const nome1 = document.getElementById('select1').value;
-            const nome2 = document.getElementById('select2').value;
-
-            let p1, p2;
-            // Busca os objetos dos jogadores no banco global
+        function buscarJogador(nome) {
             for (let time in bancoDados) {
-                let busca1 = bancoDados[time].find(p => p.nome === nome1);
-                let busca2 = bancoDados[time].find(p => p.nome === nome2);
-                if (busca1) p1 = busca1;
-                if (busca2) p2 = busca2;
+                const found = bancoDados[time].find(p => p.nome === nome);
+                if (found) return found;
             }
+            return null;
+        }
 
-            const ctx = document.getElementById('compareChart').getContext('2d');
-            if (compareChart) compareChart.destroy();
+        function popularSelects(jogo) {
+            const times = jogoTimes[jogo];
+            let html = '';
+            times.forEach(time => {
+                html += `<optgroup label="── ${nomesTime[time]} ──">`;
+                bancoDados[time].forEach(p => {
+                    html += `<option value="${p.nome}">${p.nome}</option>`;
+                });
+                html += '</optgroup>';
+            });
+            document.getElementById(jogo + '-select1').innerHTML = html;
+            document.getElementById(jogo + '-select2').innerHTML = html;
+            // Selecionar segundo jogador diferente por padrão
+            const opts = document.getElementById(jogo + '-select2').options;
+            if (opts.length > 1) opts[1].selected = true;
+            comparar(jogo);
+        }
 
-            compareChart = new Chart(ctx, {
+        function atualizarPreview(jogo, num, jogador) {
+            const cor = jogador.cor || '#ff4655';
+            document.getElementById(jogo + '-avatar' + num).src = gerarAvatar(jogador.nome, cor);
+            document.getElementById(jogo + '-name' + num).textContent = jogador.nome.toUpperCase();
+            document.getElementById(jogo + '-role' + num).textContent = jogador.role;
+        }
+
+        function renderizarBarras(containerId, p1, p2) {
+            const labels = ['MIRA', 'POSIÇÃO', 'CLUTCH', 'UTILIDADE', 'AGRESSÃO'];
+            let html = `<h4>COMPARAÇÃO DE ATRIBUTOS</h4>`;
+            labels.forEach((label, i) => {
+                const v1 = p1.stats[i];
+                const v2 = p2.stats[i];
+                html += `
+                <div class="stat-row">
+                    <div class="bar-left">
+                        <div class="bar bar-p1" style="width:${v1 * 0.9}px; max-width:90%"></div>
+                    </div>
+                    <div class="stat-label">${label}</div>
+                    <div class="bar-right">
+                        <div class="bar bar-p2" style="width:${v2 * 0.9}px; max-width:90%"></div>
+                    </div>
+                </div>`;
+            });
+            document.getElementById(containerId).innerHTML = html;
+        }
+
+        function comparar(jogo) {
+            const nome1 = document.getElementById(jogo + '-select1').value;
+            const nome2 = document.getElementById(jogo + '-select2').value;
+            const p1 = buscarJogador(nome1);
+            const p2 = buscarJogador(nome2);
+            if (!p1 || !p2) return;
+
+            atualizarPreview(jogo, 1, p1);
+            atualizarPreview(jogo, 2, p2);
+            renderizarBarras(jogo + '-bars', p1, p2);
+
+            const ctx = document.getElementById(jogo + '-chart').getContext('2d');
+            if (charts[jogo]) charts[jogo].destroy();
+
+            charts[jogo] = new Chart(ctx, {
                 type: 'radar',
                 data: {
-                    labels: ['MIRA/MECÂNICA', 'POSICIONAMENTO', 'CLUTCH/DECISÃO', 'UTILIDADE', 'AGRESSIVIDADE'],
+                    labels: ['MIRA/MECÂNICA', 'POSICIONAMENTO', 'CLUTCH', 'UTILIDADE', 'AGRESSIVIDADE'],
                     datasets: [
                         {
                             label: p1.nome,
                             data: p1.stats,
-                            backgroundColor: 'rgba(255, 70, 85, 0.3)',
+                            backgroundColor: 'rgba(255,70,85,0.25)',
                             borderColor: '#ff4655',
                             borderWidth: 3,
                             pointBackgroundColor: '#ff4655'
@@ -101,7 +407,7 @@
                         {
                             label: p2.nome,
                             data: p2.stats,
-                            backgroundColor: 'rgba(0, 191, 255, 0.3)',
+                            backgroundColor: 'rgba(0,191,255,0.25)',
                             borderColor: '#00bfff',
                             borderWidth: 3,
                             pointBackgroundColor: '#00bfff'
@@ -111,9 +417,9 @@
                 options: {
                     scales: {
                         r: {
-                            backgroundColor: 'rgba(20, 20, 20, 0.5)',
-                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                            angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                            backgroundColor: 'rgba(20,20,20,0.5)',
+                            grid: { color: 'rgba(255,255,255,0.1)' },
+                            angleLines: { color: 'rgba(255,255,255,0.1)' },
                             pointLabels: { color: '#fff', font: { size: 12, family: 'Oswald' } },
                             ticks: { display: false },
                             beginAtZero: true,
@@ -121,13 +427,17 @@
                         }
                     },
                     plugins: {
-                        legend: { labels: { color: '#fff', font: { size: 16, family: 'Oswald' } } }
+                        legend: { labels: { color: '#fff', font: { size: 15, family: 'Oswald' } } }
                     }
                 }
             });
         }
 
-        window.onload = popularSelects;
+        window.onload = function () {
+            popularSelects('cs');
+            popularSelects('val');
+            popularSelects('lol');
+        };
     </script>
 </body>
 </html>

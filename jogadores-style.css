@@ -97,3 +97,36 @@ nav a.active { color: var(--riot-red); }
 .modal-body { display: flex; gap: 40px; align-items: center; }
 .close-btn { position: absolute; top: 20px; right: 20px; font-size: 30px; cursor: pointer; color: white; }
 .stat-box { background: var(--riot-gray); padding: 10px; margin-top: 10px; font-weight: bold; color: white; }
+/* === CORREÇÕES E MELHORIAS === */
+
+/* Modal com foto */
+.modal-left {
+    flex: 0 0 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.modal-avatar {
+    width: 180px;
+    height: 200px;
+    object-fit: cover;
+    border: 2px solid var(--riot-red);
+    display: block;
+}
+
+.modal-right {
+    flex: 1;
+    min-width: 260px;
+}
+
+/* Responsivo no modal */
+@media (max-width: 700px) {
+    .modal-card { width: 95vw; padding: 25px 15px; }
+    .modal-body { flex-direction: column; align-items: center; }
+    .modal-right { width: 100%; }
+}
+
+/* Hover no botão de filtro */
+.btn-filter:hover { color: white; }
