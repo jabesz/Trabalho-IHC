@@ -130,3 +130,8 @@ nav a.active { color: var(--riot-red); }
 
 /* Hover no botão de filtro */
 .btn-filter:hover { color: white; }
+
+.link-logo {
+    text-decoration: none;
+    color: inherit;
+}
