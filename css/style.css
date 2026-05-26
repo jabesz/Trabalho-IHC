@@ -6,7 +6,6 @@
 
 body, html { margin: 0; padding: 0; height: 100%; background: var(--riot-dark); font-family: 'Roboto', sans-serif; color: var(--text-white); }
 
-/* Header */
 .riot-header {
     height: 80px; background: #111; display: flex; align-items: center; padding: 0 50px;
     border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 100;
@@ -23,7 +22,6 @@ nav a:hover, nav a.active { color: var(--riot-red); }
     color: inherit;
 }
 
-/* Hero Section */
 .hero {
     height: 90vh; display: flex; align-items: center; justify-content: center;
     background: linear-gradient(rgba(15, 25, 35, 0.8), rgba(15, 25, 35, 0.8)), url('https://images.alphacoders.com/108/1083431.jpg');
@@ -33,7 +31,6 @@ nav a:hover, nav a.active { color: var(--riot-red); }
 .hero-content h1 span { color: transparent; -webkit-text-stroke: 1px var(--riot-red); }
 .hero-tag { color: var(--riot-red); font-weight: bold; letter-spacing: 5px; }
 
-/* Botões Estilo Riot */
 .btn-riot {
     display: inline-block; padding: 20px 40px; background: var(--riot-red); color: white;
     text-decoration: none; font-weight: bold; font-family: 'Oswald'; position: relative;

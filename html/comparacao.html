@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comparação | Arena Wiki</title>
+    <title>Comparação Avançada | Arena Wiki</title>
     
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/compare.css">
@@ -30,35 +30,56 @@
     </header>
 
     <div class="game-tabs">
-        <button class="game-tab active" onclick="mudarJogo('cs')">COUNTER-STRIKE</button>
-        <button class="game-tab" onclick="mudarJogo('val')">VALORANT</button>
-        <button class="game-tab" onclick="mudarJogo('lol')">LEAGUE OF LEGENDS</button>
+        <button id="tab-cs" class="game-tab active" onclick="mudarJogo('cs')">COUNTER-STRIKE 2</button>
+        <button id="tab-val" class="game-tab" onclick="mudarJogo('val')">VALORANT</button>
+        <button id="tab-lol" class="game-tab" onclick="mudarJogo('lol')">LEAGUE OF LEGENDS</button>
+    </div>
+
+    <div class="mode-tabs-container" style="display: flex; justify-content: center; gap: 10px; margin: 15px auto;">
+        <button id="mode-player" class="game-tab active" style="padding: 8px 16px; font-size: 14px;" onclick="mudarModo('player')">COMPARAR JOGADORES</button>
+        <button id="mode-team" class="game-tab" style="padding: 8px 16px; font-size: 14px;" onclick="mudarModo('team')">COMPARAR TIMES</button>
     </div>
 
     <div class="compare-container">
         <div class="selectors-row">
             <div class="player-select-box" style="border-top: 4px solid #ff4655;">
-                <h2>JOGADOR 1</h2>
-                <select id="p1-select">
-                    </select>
+                <h2 id="title-side-1">JOGADOR 1</h2>
+                <div class="cascade-selects" style="display: flex; flex-direction: column; gap: 10px;">
+                    <select id="team1-select" onchange="aoSelecionarTime(1)"></select>
+                    <select id="ent1-select" onchange="atualizarComparacao()"></select>
+                </div>
             </div>
 
             <div class="vs-divider">
-                <button class="btn-compare" onclick="gerarComparacao()">COMPARAR</button>
+                <span class="vs-text">VS</span>
             </div>
 
             <div class="player-select-box" style="border-top: 4px solid #00bfff;">
-                <h2>JOGADOR 2</h2>
-                <select id="p2-select">
-                    </select>
+                <h2 id="title-side-2">JOGADOR 2</h2>
+                <div class="cascade-selects" style="display: flex; flex-direction: column; gap: 10px;">
+                    <select id="team2-select" onchange="aoSelecionarTime(2)"></select>
+                    <select id="ent2-select" onchange="atualizarComparacao()"></select>
+                </div>
             </div>
         </div>
 
-        <div class="chart-wrapper">
-            <canvas id="radarChart"></canvas>
+        <div class="visual-comparison-grid">
+            <div class="chart-box">
+                <div class="chart-wrapper">
+                    <canvas id="compareChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="details-box">
+                <div class="details-header">
+                    <h3 id="table-details-title">ESTATÍSTICAS DETALHADAS DO ATLETA</h3>
+                </div>
+                <div class="stats-table" id="statsDetailedContainer"></div>
+            </div>
         </div>
     </div>
 
-    <script src="../js/script.js"></script>
+    <script src="../js/compare.js"></script>
+    <script src="../js/players.js"></script>
 </body>
 </html>

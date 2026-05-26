@@ -3,20 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arena Wiki | Jogadores</title>
-    
+    <title>Jogadores | Arena Wiki</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/players.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@400;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto:wght@400;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+
     <header class="riot-header">
         <div class="logo">
-            <a class="link-logo" href="index.html">
-                ARENA<b>WIKI</b>
-            </a>
+            <a class="link-logo" href="index.html">ARENA<b>WIKI</b></a>
         </div>
         <nav>
             <ul>
@@ -28,66 +25,104 @@
         </nav>
     </header>
 
-    <div class="main-wrapper">
+    <div class="page-layout">
+        
         <aside class="sidebar">
+            <div class="search-box-sidebar">
+                <input type="text" id="input-busca" placeholder="🔍 Buscar jogador ou time..." oninput="filtrarSidebar()">
+            </div>
             <div class="section-title">COUNTER-STRIKE (HLTV)</div>
-            <button class="btn-filter" id="btn-faZe" onclick="carregarTime('faZe')">1. FaZe Clan</button>
-            <button class="btn-filter" id="btn-navi" onclick="carregarTime('navi')">2. Natus Vincere</button>
-            <button class="btn-filter" id="btn-vitality" onclick="carregarTime('vitality')">3. Team Vitality</button>
-            <button class="btn-filter" id="btn-mouz" onclick="carregarTime('mouz')">4. MOUZ</button>
-            <button class="btn-filter" id="btn-spirit" onclick="carregarTime('spirit')">5. Team Spirit</button>
-            <button class="btn-filter" id="btn-g2" onclick="carregarTime('g2')">6. G2 Esports</button>
-            <button class="btn-filter" id="btn-eternalFire" onclick="carregarTime('eternalFire')">7. Eternal Fire</button>
-            <button class="btn-filter" id="btn-virtusPro" onclick="carregarTime('virtusPro')">8. Virtus.pro</button>
-            <button class="btn-filter" id="btn-furia" onclick="carregarTime('furia')">9. FURIA (BR)</button>
-            <button class="btn-filter" id="btn-pain" onclick="carregarTime('pain')">10. paiN Gaming (BR)</button>
+            <button class="btn-filter active" id="btn-faze" onclick="mudarTime('faze')">1. FaZe Clan</button>
+            <button class="btn-filter" id="btn-navi" onclick="mudarTime('navi')">2. Natus Vincere</button>
+            <button class="btn-filter" id="btn-vitality" onclick="mudarTime('vitality')">3. Team Vitality</button>
+            <button class="btn-filter" id="btn-mouz" onclick="mudarTime('mouz')">4. MOUZ</button>
+            <button class="btn-filter" id="btn-spirit" onclick="mudarTime('spirit')">5. Team Spirit</button>
+            <button class="btn-filter" id="btn-g2" onclick="mudarTime('g2')">6. G2 Esports</button>
+            <button class="btn-filter" id="btn-ef" onclick="mudarTime('ef')">7. Eternal Fire</button>
+            <button class="btn-filter" id="btn-vp" onclick="mudarTime('vp')">8. Virtus.pro</button>
+            <button class="btn-filter" id="btn-furia" onclick="mudarTime('furia')">9. FURIA (BR)</button>
+            <button class="btn-filter" id="btn-pain" onclick="mudarTime('pain')">10. paiN Gaming (BR)</button>
 
             <div class="section-title" style="margin-top: 30px;">VALORANT (VCT)</div>
-            <button class="btn-filter" id="btn-sentinels" onclick="carregarTime('sentinels')">1. Sentinels</button>
-            <button class="btn-filter" id="btn-fnatic" onclick="carregarTime('fnatic')">2. Fnatic</button>
-            <button class="btn-filter" id="btn-genG" onclick="carregarTime('genG')">3. Gen.G Esports</button>
-            <button class="btn-filter" id="btn-edgVal" onclick="carregarTime('edgVal')">4. EDward Gaming</button>
-            <button class="btn-filter" id="btn-teamHeretics" onclick="carregarTime('teamHeretics')">5. Team Heretics</button>
-            <button class="btn-filter" id="btn-g2Val" onclick="carregarTime('g2Val')">6. G2 Esports</button>
-            <button class="btn-filter" id="btn-paperRex" onclick="carregarTime('paperRex')">7. Paper Rex</button>
-            <button class="btn-filter" id="btn-leviatan" onclick="carregarTime('leviatan')">8. Leviatán</button>
-            <button class="btn-filter" id="btn-kru" onclick="carregarTime('kru')">9. KRÜ Esports</button>
-            <button class="btn-filter" id="btn-loud" onclick="carregarTime('loud')">10. LOUD (BR)</button>
+            <button class="btn-filter" id="btn-sentinels" onclick="mudarTime('sentinels')">1. Sentinels</button>
+            <button class="btn-filter" id="btn-fnatic" onclick="mudarTime('fnatic')">2. Fnatic</button>
+            <button class="btn-filter" id="btn-loud" onclick="mudarTime('loud')">3. LOUD (BR)</button>
+            <button class="btn-filter" id="btn-geng_val" onclick="mudarTime('geng_val')">4. Gen.G Esports</button>
+            <button class="btn-filter" id="btn-edg" onclick="mudarTime('edg')">5. EDward Gaming</button>
+            <button class="btn-filter" id="btn-th" onclick="mudarTime('th')">6. Team Heretics</button>
+            <button class="btn-filter" id="btn-prx" onclick="mudarTime('prx')">7. Paper Rex</button>
+            <button class="btn-filter" id="btn-drx" onclick="mudarTime('drx')">8. DRX</button>
+            <button class="btn-filter" id="btn-lev" onclick="mudarTime('lev')">9. Leviatán</button>
+            <button class="btn-filter" id="btn-fpx" onclick="mudarTime('fpx')">10. FunPlus Phoenix</button>
 
             <div class="section-title" style="margin-top: 30px;">LEAGUE OF LEGENDS</div>
-            <button class="btn-filter" id="btn-t1" onclick="carregarTime('t1')">1. T1</button>
-            <button class="btn-filter" id="btn-genG_lol" onclick="carregarTime('genG_lol')">2. Gen.G LoL</button>
-            <button class="btn-filter" id="btn-blg" onclick="carregarTime('blg')">3. Bilibili Gaming</button>
-            <button class="btn-filter" id="btn-g2_lol" onclick="carregarTime('g2_lol')">4. G2 Esports</button>
-            <button class="btn-filter" id="btn-hanwha" onclick="carregarTime('hanwha')">5. Hanwha Life</button>
-            <button class="btn-filter" id="btn-tes" onclick="carregarTime('tes')">6. Top Esports</button>
-            <button class="btn-filter" id="btn-wbg" onclick="carregarTime('wbg')">7. Weibo Gaming</button>
-            <button class="btn-filter" id="btn-flyquest" onclick="carregarTime('flyquest')">8. FlyQuest</button>
-            <button class="btn-filter" id="btn-pain_lol" onclick="carregarTime('pain_lol')">9. paiN Gaming (BR)</button>
-            <button class="btn-filter" id="btn-loud_lol" onclick="carregarTime('loud_lol')">10. LOUD (BR)</button>
+            <button class="btn-filter" id="btn-t1" onclick="mudarTime('t1')">1. T1</button>
+            <button class="btn-filter" id="btn-geng" onclick="mudarTime('geng')">2. Gen.G Esports</button>
+            <button class="btn-filter" id="btn-blg" onclick="mudarTime('blg')">3. Bilibili Gaming</button>
+            <button class="btn-filter" id="btn-tes" onclick="mudarTime('tes')">4. Top Esports</button>
+            <button class="btn-filter" id="btn-g2_lol" onclick="mudarTime('g2_lol')">5. G2 Esports</button>
+            <button class="btn-filter" id="btn-fnatic_lol" onclick="mudarTime('fnatic_lol')">6. Fnatic</button>
+            <button class="btn-filter" id="btn-hle" onclick="mudarTime('hle')">7. Hanwha Life</button>
+            <button class="btn-filter" id="btn-dk" onclick="mudarTime('dk')">8. Dplus KIA</button>
+            <button class="btn-filter" id="btn-fly" onclick="mudarTime('fly')">9. FlyQuest</button>
+            <button class="btn-filter" id="btn-pai_lol" onclick="mudarTime('pai_lol')">10. paiN Gaming (BR)</button>
         </aside>
 
-        <main class="content">
-            <div class="content-header">
-                <h1 id="time-selecionado">SELECIONE UM <span>TIME</span></h1>
-            </div>
-            <div class="players-grid" id="players-grid">
+        <main class="main-content">
+            
+            <div class="team-header-block">
+                <div class="team-title-area">
+                    <span id="game-tag" class="subtitle-game">COUNTER-STRIKE 2</span>
+                    <h1 id="time-selecionado">FAZE CLAN</h1>
                 </div>
+                <div class="team-badge-rank">
+                    <span class="rank-label">RANK MUNDIAL</span>
+                    <span id="rank-numero" class="rank-number">#1</span>
+                </div>
+            </div>
+
+            <section class="players-section">
+                <h2 class="section-divider-title">LINE-UP TITULAR</h2>
+                <div class="players-grid" id="players-grid">
+                    </div>
+            </section>
+
+            <section class="team-overview-section">
+                <div class="overview-box history-box">
+                    <h2>HISTÓRIA DA ORGANIZAÇÃO</h2>
+                    <p id="txt-historia">Carregando história...</p>
+                </div>
+                
+                <div class="overview-box trophies-box">
+                    <h2>PRINCIPAIS TÍTULOS (S-TIER)</h2>
+                    <ul class="trophy-list" id="lista-titulos">
+                        </ul>
+                </div>
+            </section>
+
         </main>
     </div>
 
-    <div id="playerModal" class="modal">
+    <div id="playerModal" class="modal-overlay">
         <div class="modal-card">
-            <span class="close-btn" onclick="fecharModal()">&times;</span>
+            <button class="modal-close" onclick="fecharModal()">&times;</button>
             <div class="modal-body">
-                <div class="modal-left">
-                    <img id="modalPlayerImg" class="modal-avatar" src="" alt="Foto do jogador" onerror="this.src='https://via.placeholder.com/150'">
-                    <h2 id="modalPlayerName" style="font-family:'Oswald';color:#ff4655;margin:15px 0 5px; text-transform: uppercase;">NOME</h2>
-                    <p id="modalPlayerRole" style="color:#888;margin:0 0 15px;">Role</p>
-                    <div class="stat-box">K/D / Geral: &nbsp;<span id="modalKD">0</span></div>
-                    <div class="stat-box">HS% / KDA: &nbsp;<span id="modalHS">0</span></div>
+                <div class="modal-player-card">
+                    <div class="modal-avatar-box" id="modal-avatar">?</div>
+                    <h2 id="modal-nome">NOME</h2>
+                    <p id="modal-funcao">FUNÇÃO</p>
+                    <div class="modal-basic-stats">
+                        <div class="stat-mini">
+                            <span class="stat-lbl">K/D RATIO</span>
+                            <span id="modal-stat-kd" class="stat-val">1.20</span>
+                        </div>
+                        <div class="stat-mini">
+                            <span id="modal-stat-label-extra" class="stat-lbl">HS %</span>
+                            <span id="modal-stat-extra" class="stat-val">50%</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-right" style="flex:1; max-width:400px;">
+                <div class="modal-chart-box">
                     <canvas id="radarChart"></canvas>
                 </div>
             </div>
