@@ -1,0 +1,131 @@
+body {
+  background-color: #0f0f1a;
+  color: #fff;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.clipes-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.page-title {
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+  font-size: 32px;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.page-subtitle {
+  text-align: center;
+  color: #888;
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.game-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 15px;
+}
+
+.game-tab {
+  background: none;
+  border: none;
+  color: #888;
+  font-family: 'Oswald', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+}
+
+.game-tab:hover,
+.game-tab.active {
+  color: #ff4655;
+}
+
+.clips-section {
+  display: none;
+}
+
+.clips-section.active {
+  display: block;
+}
+
+.clips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 25px;
+}
+
+.clip-card {
+  background: #161624;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.clip-card:hover {
+  transform: translateY(-5px);
+  border-color: #ff4655;
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.clip-info {
+  padding: 15px;
+}
+
+.clip-tag {
+  display: inline-block;
+  background: rgba(255, 70, 85, 0.1);
+  color: #ff4655;
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.clip-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 18px;
+  margin: 0 0 5px 0;
+  color: #ece8e1;
+  line-height: 1.3;
+}
+
+.clip-description {
+  font-size: 13px;
+  color: #999;
+  margin: 0;
+  line-height: 1.4;
+}

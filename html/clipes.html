@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arena Wiki | Home</title>
+    <title>Clipes Icônicos | Arena Wiki</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto:wght@400;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/clipes.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -17,25 +18,191 @@
         </div>
         <nav>
             <ul>
-                <li><a href="index.html" class="active">INÍCIO</a></li>
+                <li><a href="index.html">INÍCIO</a></li>
                 <li><a href="jogadores.html">JOGADORES</a></li>
-                <li><a href="clipes.html">CLIPES</a></li>
+                <li><a href="clipes.html" class="active">CLIPES</a></li>
                 <li><a href="comparacao.html">COMPARAÇÃO</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-      <section>
-        <div>
-            <div class="hero-video-overlay">
-              <h2>area de clipes</h2>
-            </div>
-            <div class="hero-content">
-              <h2>info do clipe</h2>
-            </div>
-      </section>
-    </main>
+    <div class="clipes-container">
+        <h1 class="page-title">Jogadas Históricas</h1>
+        <p class="page-subtitle">Os momentos mais icônicos e inesquecíveis do cenário competitivo mundial</p>
 
+        <div class="game-tabs">
+            <button id="tab-cs" class="game-tab active" onclick="mudarJogoClipes('cs')">COUNTER-STRIKE 2</button>
+            <button id="tab-val" class="game-tab" onclick="mudarJogoClipes('val')">VALORANT</button>
+            <button id="tab-lol" class="game-tab" onclick="mudarJogoClipes('lol')">LEAGUE OF LEGENDS</button>
+        </div>
+
+        <div id="section-cs" class="clips-section active">
+            <div class="clips-grid">
+                <div class="clip-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/cjOVXdarUTs" allowfullscreen></iframe>
+                    </div>
+                    <div class="clip-info">
+                        <span class="clip-tag">TOP 1 - CS:GO / CS2</span>
+                        <h3 class="clip-title">Coldzera: O Lendário 4K de AWP Pulando</h3>
+                        <p class="clip-description">O milagre na Mirage contra a Team Liquid que mudou os rumos do Major MLG Columbus 2016 e eternizou o grafite na parede da B.</p>
+                    </div>
+                </div>
+                <div class="clip-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/QQIX-ylS7YU" allowfullscreen></iframe>
+                    </div>
+                    <div class="clip-info">
+                        <span class="clip-tag">TOP 2 - CS:GO / CS2</span>
+                        <h3 class="clip-title">s1mple: O Duplo No-Scope na Cache</h3>
+                        <p class="clip-description">Caindo do céu do bombsite B, s1mple elimina dois adversários da Fnatic sem abrir a mira, garantindo um dos grafites mais icônicos do jogo.</p>
+                    </div>
+                </div>
+                <div class="clip-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/N4_qZYv4dqM" allowfullscreen></iframe>
+                    </div>
+                    <div class="clip-info">
+                        <span class="clip-tag">TOP 3 - CS:GO / CS2</span>
+                        <h3 class="clip-title">Fallen: "Stop blowing my mind!" na Overpass</h3>
+                        <p class="clip-description">O clutch absurdo de AWP contra a Na'Vi na Overpass que fez os narradores americanos perderem totalmente a linha com o nível tático do Verdadeiro.</p>
+                    </div>
+                </div>
+                <div class="clip-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/PCXynsi4FiU" allowfullscreen></iframe>
+                    </div>
+                    <div class="clip-info">
+                        <span class="clip-tag">TOP 4 - CS2</span>
+                        <h3 class="clip-title">Donk: O Clutch Avançado 1v5 na Mirage</h3>
+                        <p class="clip-description">A afirmação do prodígio russo obliterando a Heroic sozinho com uma agressividade absurda e controle de spray impecável.</p>
+                    </div>
+                </div>
+                <div class="clip-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/sky3WydyiX8" allowfullscreen></iframe>
+                    </div>
+                    <div class="clip-info">
+                        <span class="clip-tag">TOP 5 - CS:GO / CS2</span>
+                        <h3 class="clip-title">Olofmeister: O Defuse em Chamas</h3>
+                        <p class="clip-description">A semifinal épica onde Olofmeister iniciou o desarmamento da C4 e queimou até a morte dentro do molotov para garantir o round da Fnatic.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="section-val" class="clips-section">
+            <div class="clips-grid">
+                <div class="clip-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/Lgl64Y-bflg" allowfullscreen></iframe>
+                    </div>
+                    <div class="clip-info">
+                        <span class="clip-tag">TOP 1 - VALORANT</span>
+                        <h3 class="clip-title">aspas: O Clutch 1v3 Impossível na Bind</h3>
+                        <p class="clip-description">A emblemática jogada de Jett contra a OpTic Gaming que pavimentou o caminho da LOUD rumo ao título mundial do Champions 2022.</p>
+                    </div>
+                </div>
+                <div class="clip-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/seqy13RyQ90" allowfullscreen></iframe>
+                    </div>
+                    <div class="clip-info">
+                        <span class="clip-tag">TOP 2 - VALORANT</span>
+                        <h3 class="clip-title">aspas: O Ace Clutch 1v5 Absurdo contra a NRG</h3>
+                        <p class="clip-description">Isolando os confrontos milimetricamente e destruindo uma das equipes mais táticas da América do Norte sem sofrer revide.</p>
+                    </div>
+                </div>
+                <div class="clip-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/JbNNZ_vOCCU" allowfullscreen></iframe>
+                    </div>
+                    <div class="clip-info">
+                        <span class="clip-tag">TOP 3 - VALORANT</span>
+                        <h3 class="clip-title">f0rsakeN: Aula de Retake 1v5 contra EDG</h3>
+                        <p class="clip-description">A mente brilhante da Paper Rex mostrando leitura perfeita do tempo de spike e eliminação precisa de cada defensor chinês.</p>
+                    </div>
+                </div>
+                <div class="clip-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/tpdJQSF5lGg" allowfullscreen></iframe>
+                    </div>
+                    <div class="clip-info">
+                        <span class="clip-tag">TOP 4 - VALORANT</span>
+                        <h3 class="clip-title">Demon1: O Triplo Abate Absurdo de Jett</h3>
+                        <p class="clip-description">A mira mais calibrada do VCT estraçalhando a linha de defesa inimiga com flicks rápidos e headshots instantâneos de Vandal.</p>
+                    </div>
+                </div>
+                <div class="clip-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/yr9zT1xWLR8" allowfullscreen></iframe>
+                    </div>
+                    <div class="clip-info">
+                        <span class="clip-tag">TOP 5 - VALORANT</span>
+                        <h3 class="clip-title">Demon1: O 4K Clutch de Sangue Frio</h3>
+                        <p class="clip-description">Mostrando o motivo de ter sido o MVP global, Demon1 vence um desvantagem numérica crucial controlando o bomb de forma cirúrgica.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="section-lol" class="clips-section">
+            <div class="clips-grid">
+                <div class="clip-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/ZPCfoCVCx3U" allowfullscreen></iframe>
+                    </div>
+                    <div class="clip-info">
+                        <span class="clip-tag">TOP 1 - LEAGUE OF LEGENDS</span>
+                        <h3 class="clip-title">Faker: O Espetacular Duelo de Zed (1v1 Ryu)</h3>
+                        <p class="clip-description">A outplay mais famosa e reproduzida de toda a história do League of Legends. Praticamente morto, Faker usou suas sombras para humilhar o rival.</p>
+                    </div>
+                </div>
+                <div class="clip-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/P-980Fu31PQ" allowfullscreen></iframe>
+                    </div>
+                    <div class="clip-info">
+                        <span class="clip-tag">TOP 2 - LEAGUE OF LEGENDS</span>
+                        <h3 class="clip-title">Faker: A Iniciação de Shockwave do Século</h3>
+                        <p class="clip-description">Comandando a Orianna, Faker achou uma brecha milimétrica na defesa adversária, puxando 4 jogadores e virando uma partida considerada perdida.</p>
+                    </div>
+                </div>
+                <div class="clip-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/xs9yDu74G1k" allowfullscreen></iframe>
+                    </div>
+                    <div class="clip-info">
+                        <span class="clip-tag">TOP 3 - LEAGUE OF LEGENDS</span>
+                        <h3 class="clip-title">xPeke: O Backdoor Lendário de Kassadin</h3>
+                        <p class="clip-description">Com a base da Fnatic caindo, xPeke teleportou sozinho para o Nexus da SK Gaming e esquivou de tudo para destruir o cristal em uma corrida contra o tempo.</p>
+                    </div>
+                </div>
+                <div class="clip-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/3rvG19RJQOQ" allowfullscreen></iframe>
+                    </div>
+                    <div class="clip-info">
+                        <span class="clip-tag">TOP 4 - LEAGUE OF LEGENDS</span>
+                        <h3 class="clip-title">SKT T1: O Combo Perfeito na Rota Inferior</h3>
+                        <p class="clip-description">A icônica luta de equipe onde o time da SKT encaixou uma sequência devastadora de habilidades para dizimar a line-up da KT Bullets.</p>
+                    </div>
+                </div>
+                <div class="clip-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/3u72nxm1dug" allowfullscreen></iframe>
+                    </div>
+                    <div class="clip-info">
+                        <span class="clip-tag">TOP 5 - LEAGUE OF LEGENDS</span>
+                        <h3 class="clip-title">Smeb: O Roubo de Barão Inacreditável</h3>
+                        <p class="clip-description">Utilizando o Equalizador do Rumble, Smeb derreteu a retaguarda inimiga e roubou o objetivo decisivo que consagrou a ROX Tigers no palco mundial.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../js/clipes.js"></script>
 </body>
 </html>
